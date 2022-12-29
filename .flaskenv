@@ -1,0 +1,3 @@
+FLASK_APP=mercadopago.py
+SECRET_KEY=
+DATABASE_URL=

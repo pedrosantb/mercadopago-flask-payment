@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %} {% endblock %}
+{% block title %} {{ title }} {% endblock %}
+{% block header %} {% endblock %}
+{% block main %}
+    <h1>Create a payment on Mercado Pago</h1>
+
+    <div class="form">
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form action="" method="post">
+            <label for="value"> Payment Value <br>
+                {{ form.value(size=32, placeholder="23.2") }}
+            </label>
+            {{ form.submit }}
+        </form>
+    </div>
+
+
+    <div class="payments">
+        {% for payment in payments%}
+            <ul>
+                <li>{{ payment.id }} // {{ payment.value }} // {{ payment.status }} </li>
+            </ul>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}
+{% block footer %} {% endblock %}
