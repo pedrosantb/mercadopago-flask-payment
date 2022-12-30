@@ -30,7 +30,7 @@
     <div class="payments">
         {% for payment in payments%}
             <ul>
-                <li>{{ payment.id }} // {{ payment.value }} // {{ payment.status }} </li>
+                <li>{{ payment.id }} // {{ payment.value }} // {{ payment.status }} // <a href="/pay/{{ payment.id }}">Pay Here!</a> </li>
             </ul>
         {% endfor %}
     </div>
