@@ -7,7 +7,7 @@ from sqlalchemy import update, create_engine
 import os
 import json
 
-from app.models import Payments
+from app.models import Products
 from app.forms import PaymentForm
 
 from dotenv import load_dotenv
@@ -25,11 +25,11 @@ def index():
     title = "Index page"
     form = PaymentForm()
     try:
-        payments = Payments.query.all()
+        payments = Products.query.all()
     except:
         payments = []
     if form.is_submitted():
-        payment = Payments(value=form.value.data)
+        payment = Products(value=form.value.data)
         db.session.add(payment)
         db.session.commit()
         flash('Payment Commited!')
@@ -39,15 +39,29 @@ def index():
 
 @app.route('/pay/<int:product_id>')
 def create_pay(product_id):
-    product = Payments.query.filter_by(id=product_id).first()
+    product = Products.query.filter_by(id=product_id).first()
     payment_url = mp_payment(request, product=product)
     return redirect(mp_payment(request, product=product))
 
 
 @app.route('/success/<int:product_id>')
 def success_pay(product_id):
-    
+    upd = update(Products)
+    values = upd.values({
+        'status': 'success'
+    })
+    condition = values.where(Products.id == product_id)
+    engine.execute(condition)
 
+    return redirect(url_for('index'))
 
 @app.route('/failure/<int:product_id>')
 def failure_pay(product_id):
+    upd = update(Products)
+    values = upd.values({
+        'status': 'failure'
+    })
+    condition = values.where(Products.id == product_id)
+    engine.execute(condition)
+
+    return redirect(url_for('index'))

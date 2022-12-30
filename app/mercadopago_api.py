@@ -17,8 +17,8 @@ def mp_payment(req, **kwargs):
             }
         ],
         "back_urls": {
-          "success": "http://127.0.0.1:5000/success/" + product.id,
-          "failure": "http://127.0.0.1:5000/failure/" + product.id
+          "success": "http://127.0.0.1:5000/success/" + str(product.id),
+          "failure": "http://127.0.0.1:5000/failure/" + str(product.id)
         },
         "auto_return": "approved",
         "binary_mode": True
